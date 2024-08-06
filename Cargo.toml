@@ -34,8 +34,9 @@ targets = ["aarch64-apple-ios", "aarch64-linux-android", "x86_64-apple-darwin", 
 [package.metadata.playground]
 features = ["all"]
 
-[target."cfg(unix)".dependencies]
-libc = "0.2.150"
+# TODO: Remove git dependency once wasi sockets bindings merged into upstream libc
+[target.'cfg(any(unix, target_os="wasi"))'.dependencies]
+libc = { git = "https://github.com/seliumlabs/libc.git", branch = "feature/wasi-sockets-bindings" }
 
 [target.'cfg(windows)'.dependencies.windows-sys]
 version = "0.52"

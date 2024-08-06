@@ -16,6 +16,8 @@ use std::net::Ipv6Addr;
 use std::net::{self, Ipv4Addr, Shutdown};
 #[cfg(unix)]
 use std::os::unix::io::{FromRawFd, IntoRawFd};
+#[cfg(target_os = "wasi")]
+use std::os::wasi::io::{FromRawFd, IntoRawFd};
 #[cfg(windows)]
 use std::os::windows::io::{FromRawSocket, IntoRawSocket};
 use std::time::Duration;
@@ -273,6 +275,7 @@ impl Socket {
             target_os = "linux",
             target_os = "netbsd",
             target_os = "openbsd",
+            target_os = "wasi"
         ))]
         return self._accept4(libc::SOCK_CLOEXEC);
 
@@ -286,6 +289,7 @@ impl Socket {
             target_os = "linux",
             target_os = "netbsd",
             target_os = "openbsd",
+            target_os = "wasi"
         )))]
         {
             let (socket, addr) = self.accept_raw()?;
@@ -2055,6 +2059,7 @@ impl Socket {
             target_os = "netbsd",
             target_os = "tvos",
             target_os = "watchos",
+            target_os = "wasi"
         )
     ))]
     #[cfg_attr(
@@ -2074,6 +2079,7 @@ impl Socket {
                 target_os = "netbsd",
                 target_os = "tvos",
                 target_os = "watchos",
+                target_os = "wasi"
             )
         )))
     )]
@@ -2104,6 +2110,7 @@ impl Socket {
             target_os = "netbsd",
             target_os = "tvos",
             target_os = "watchos",
+            target_os = "wasi",
         )
     ))]
     #[cfg_attr(
@@ -2123,6 +2130,7 @@ impl Socket {
                 target_os = "netbsd",
                 target_os = "tvos",
                 target_os = "watchos",
+                target_os = "wasi"
             )
         )))
     )]

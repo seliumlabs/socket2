@@ -225,7 +225,7 @@ impl SockAddr {
                 ip,
                 port,
                 addr.sin6_flowinfo,
-                #[cfg(unix)]
+                #[cfg(any(unix, target_os = "wasi"))]
                 addr.sin6_scope_id,
                 #[cfg(windows)]
                 unsafe {
